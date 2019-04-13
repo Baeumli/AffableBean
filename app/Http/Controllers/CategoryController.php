@@ -35,8 +35,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|unique:users',
+            'input_img' => 'image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+
         $category = new Category();
         $category->name = $request->input('name');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/categories');
+            $image->move($destinationPath, $name);
+            $category->image = $name;
+        }
         $category->save();
         return redirect('/admin');
     }

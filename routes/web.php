@@ -18,16 +18,12 @@ Route::get('/', function () {
 Route::get('/admin', 'AdminController@index');
 Route::get('/', 'HomeController@index');
 Auth::routes();
+Route::prefix('admin')->group(function() {
+    Route::resource('categories', 'CategoryController');
+});
 
-Route::resource('categories', 'CategoryController', ['names' => [
-    'index' => 'admin.categories',
-    'create' => 'admin.categories.create',
-    'edit' => 'admin.categories.edit',
-    'show' => 'admin.categories.show',
-]]);
-Route::resource('products', 'ProductController', ['names' => [
-    'index' => 'admin.products',
-    'create' => 'admin.products.create',
-    'edit' => 'admin.products.edit',
-    'show' => 'admin.products.show',
-]]);
+Route::prefix('admin')->group(function() {
+    Route::resource('products', 'ProductController');
+});
+
+
