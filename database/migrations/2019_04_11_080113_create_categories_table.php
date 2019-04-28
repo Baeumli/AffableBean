@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Category;
 
 class CreateCategoriesTable extends Migration
 {
@@ -19,6 +20,25 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->timestamps();
         });
+
+        Category::insert([
+            [
+                'name' => 'Dairy',
+                'image' => 'dairy.jpg',
+            ],
+            [
+                'name' => 'Bakery',
+                'image' => 'bakery.jpg',
+            ],
+            [
+                'name' => 'Fruit & Vegetables',
+                'image' => 'fruit_veg.jpg',
+            ],
+            [
+                'name' => 'Meats',
+                'image' => 'meats.jpg',
+            ],
+        ]);
     }
 
     /**

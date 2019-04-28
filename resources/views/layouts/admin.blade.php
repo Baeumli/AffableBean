@@ -22,7 +22,7 @@
             <div class="row justify-content-center">
                 <div class="col-sm-12 col-md-8">
                     <div class="content pb-4">
-                    @include('inc.navbar')
+                        @include('inc.navbar')
                         <main class="py-4 p-4">
                             <div class="row justify-content-center">
                                 <div class="col">
@@ -31,7 +31,15 @@
                                     </div>
                                 </div>
                             </div>
-                            @yield('content')
+                            <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                    @include('inc.sidebar')
+                                </div>
+                                <div class="col-md-8">
+                                    @yield('content')
+                                </div>
+                            </div>
+
                         </main>
                         <footer>
                             @include('inc.footer')
@@ -42,5 +50,4 @@
         </div>
     </div>
 </body>
-
 </html>

@@ -11,19 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/admin', 'AdminController@index');
-Route::get('/', 'HomeController@index');
+Route::get('/', 'PageController@index');
+Route::get('/categories', 'PageController@categories');
+Route::get('/categories/{category}', 'PageController@showCategory');
+Route::get('/products/{product}', 'PageController@showProduct');
+Route::post('/', 'AppController@changeLocale');
 Auth::routes();
-Route::prefix('admin')->group(function() {
-    Route::resource('categories', 'CategoryController');
-});
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->name('admin.')->group(function() {
+    Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
+    Route::resource('users', 'UserController');
 });
 
 

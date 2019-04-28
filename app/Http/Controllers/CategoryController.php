@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('categories.index');
+        return view('admin.categories.index');
     }
 
     /**
@@ -40,7 +45,6 @@ class CategoryController extends Controller
             'input_img' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-
         $category = new Category();
         $category->name = $request->input('name');
 
@@ -52,7 +56,7 @@ class CategoryController extends Controller
             $category->image = $name;
         }
         $category->save();
-        return redirect('/admin');
+        return redirect('/admin/categories');
     }
 
     /**
@@ -63,7 +67,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('admin.categories.show', compact('category'));
+        return view('categories.show', compact('category'));
     }
 
     /**
