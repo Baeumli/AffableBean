@@ -10671,7 +10671,8 @@ a.text-dark:focus {
   border-width: 0;
 }
 
-.table tbody td {
+.table tbody td,
+.table thead th {
   border-top: 1px solid #666666;
   border-bottom: 1px solid #666666;
 }

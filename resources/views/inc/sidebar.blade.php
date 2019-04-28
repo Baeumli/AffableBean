@@ -1,8 +1,11 @@
 <div class="list-group">
+        <a href="/admin" class="list-group-item list-group-item-action">
+            <h3>Dashboard</h3>
+        </a>
         <a href="/admin/admins" class="list-group-item list-group-item-action">
             <h3>Administrators</h3>
         </a>
-        <a href="/admin/customers" class="list-group-item list-group-item-action">
+        <a href="/admin/users" class="list-group-item list-group-item-action">
             <h3>Customers</h3>
         </a>
         <a href="/admin/orders" class="list-group-item list-group-item-action">

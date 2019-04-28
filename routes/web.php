@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/admin', 'AdminController@index');
+Route::get('/admin', 'AdminController@dashboard');
 Route::get('/', 'PageController@index');
 Route::get('/categories', 'PageController@categories');
 Route::get('/categories/{category}', 'PageController@showCategory');
@@ -23,6 +23,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
     Route::resource('users', 'UserController');
+    Route::resource('admins', 'UserController')->except(['index']);
+    Route::get('/admins', 'AdminController@index')->name('admins.index');
 });
 
 

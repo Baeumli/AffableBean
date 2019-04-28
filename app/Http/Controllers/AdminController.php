@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+
 class AdminController extends Controller
 {
     /**
@@ -19,11 +21,18 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    
-    public function index()
+    public function dashboard()
     {
         return view('admin.index');
     }
+
+
+    public function index()
+    {
+        $admins = User::where('is_admin', '!=', 0)->get();
+        return view('admin.admins.index', compact('admins'));
+    }
+
 
     
 }
