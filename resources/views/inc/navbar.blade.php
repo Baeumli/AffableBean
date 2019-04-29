@@ -7,7 +7,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/categories">Categories</a>
+                    <a class="nav-link" href="/cart">Cart</a>
                 </li>   
             </ul>
 
@@ -35,6 +35,7 @@
                                              document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
+                            <a class="dropdown-item" href="/admin">Dashboard</a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

@@ -10657,10 +10657,17 @@ a.text-dark:focus {
 
 .content {
   background-color: bisque;
+  border-radius: 15px;
 }
 
 .navbar-laravel {
   background-color: transparent;
+}
+
+.cart .card-header,
+.cart .card-body {
+  background-color: white;
+  border-width: 1;
 }
 
 .card,

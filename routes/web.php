@@ -13,6 +13,9 @@
 
 Route::get('/admin', 'AdminController@dashboard');
 Route::get('/', 'PageController@index');
+Route::post('/categories/{category}', 'AppController@addToCart');
+Route::get('/cart', 'PageController@cart');
+Route::post('/cart/{id}', 'AppController@removeFromCart');
 Route::get('/categories', 'PageController@categories');
 Route::get('/categories/{category}', 'PageController@showCategory');
 Route::get('/products/{product}', 'PageController@showProduct');
@@ -22,9 +25,14 @@ Auth::routes();
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
+    Route::resource('orders', 'OrderController');
     Route::resource('users', 'UserController');
-    Route::resource('admins', 'UserController')->except(['index']);
+    Route::resource('admins', 'UserController')->except(['index', 'create', 'edit', 'show']);
     Route::get('/admins', 'AdminController@index')->name('admins.index');
+    Route::get('/admins/create', 'AdminController@create')->name('admins.create');
+    Route::get('/admins/{id}/edit', 'AdminController@edit')->name('admins.edit');
+    Route::get('/admins/{id}', 'AdminController@show')->name('admins.show');
+    
 });
 
 

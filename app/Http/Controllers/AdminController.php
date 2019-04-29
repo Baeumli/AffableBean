@@ -33,6 +33,20 @@ class AdminController extends Controller
         return view('admin.admins.index', compact('admins'));
     }
 
+    public function create()
+    {
+        return view('admin.admins.create');
+    }
+
+    public function edit(User $admin)
+    {
+        return view('admin.admins.edit', compact('admin'));
+    }
+
+    public function show(User $admin)
+    {
+        return view('admin.admins.index', compact('admin'));
+    }
 
     
 }

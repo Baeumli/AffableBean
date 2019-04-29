@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
+use App\Product;
+use Illuminate\Support\Facades\Session;
 
 class AppController extends Controller
 {
@@ -21,5 +22,18 @@ class AppController extends Controller
         }
         return redirect('/');
     }
-    
+
+    public function addToCart($id) {
+        Session::push('products', $id);
+        return redirect()->back();
+    }
+
+    public function removeFromCart($id) {
+        $products = session()->pull('products', []);
+        if(($key = array_search($id, $products)) !== false) {
+            unset($products[$key]);
+        }
+        session()->put('products', $products);
+        return redirect()->back();
+    }
 }

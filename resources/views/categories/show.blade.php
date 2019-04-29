@@ -27,8 +27,13 @@
                             <p>&euro; {{$product->price}}</p>
                         </td>
                         <td class="align-middle">
-                            @if ($product->in_stock > 0 )
-                            <a href="">Add to cart</a> @else
+                            @if ($product->in_stock > 0)
+                            <form action="{{action('AppController@addToCart', $product->id)}}" method="post">
+                                @csrf
+                                <button class="btn btn-success" type="submit">Add to cart</button>
+                            </form>
+                            
+                            @else
                             <p class="text-danger">Out of Stock</p>
                             @endif
                         </td>

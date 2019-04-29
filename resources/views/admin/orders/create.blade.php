@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     
@@ -10,12 +10,13 @@
             <div class="form-group">
                 <label for="name">Name:</label>
                 <input class="form-control" type="text" name="name">
-                <label for="image">Image:</label>
-                <input class="form-control-file" type="file" name="image">
             </div>
-    
             <div class="form-group">
-                <button class="btn btn-success" type="submit">Submit</button>
+                <label for="image">Upload Image:</label>
+                <input type="file" class="form-control-file" name="image">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Submit</button>
             </div>
          
     </form>

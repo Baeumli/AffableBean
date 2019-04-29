@@ -31,7 +31,7 @@
                                 @csrf @method('DELETE')
 
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <a class="btn btn-dark" href="#">Edit</a>
+                                    <a class="btn btn-dark" href="/admin/admins/{{$admin->id}}/edit">Edit</a>
                                     <button class="btn btn-danger" type="submit">Delete</button>  
                                 </div>
                                          

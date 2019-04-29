@@ -1,8 +1,9 @@
 @extends('layouts.admin') 
 @section('content')
-<h1>Categories
-    <span><a class="btn btn-success float-right" href="/admin/categories/create">Create</a></span>
+<h1>
+    Orders
 </h1>
+
 
 <table class="table">
     <thead>
@@ -14,16 +15,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($categories as $category)
+        @foreach ($orders as $order)
         <tr>
-            <td>{{$category->id}}</td>
-            <td>{{$category->name}}</td>
-            <td>{{$category->image}}</td>
+            <td>{{$order->id}}</td>
             <td>
-                <form class="form-inline" action="{{action('CategoryController@destroy', $category)}}" method="POST">
+                <form class="form-inline" action="{{action('OrderController@destroy', $order)}}" method="POST">
                     @csrf @method('DELETE')
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a class="btn btn-dark" href="/admin/categories/{{$category->id}}/edit">Edit</a>
+                        <a class="btn btn-dark" href="/admin/categories/{{$order->id}}/edit">Edit</a>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </div>
                 </form>
