@@ -12,7 +12,6 @@
             <th scope="col">Price</th>
             <th scope="col">Stock</th>
             <th scope="col">Image</th>
-            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -21,18 +20,23 @@
             <td>{{$product->id}}</td>
             <td>{{$product->name}}</td>
             <td>{{$product->description}}</td>
-            <td>{{$product->quantity}}</td>
+            <td>
+                <span class="float-right"><form action="{{action('AppController@addToCart', $product->id)}}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">+</button>
+                    </form></span>
+                    <span class="float-none">{{$product->quantity}}</span>
+
+                <span class="float-left"><form action="{{action('AppController@removeFromCart', $product->id)}}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">-</button>
+                    </form></span>
+                
+                
+            </td>
             <td>{{$product->price}}</td>
             <td>{{$product->in_stock}}</td>
             <td>{{$product->image}}</td>
-            <td>
-                <form class="form-inline" action="{{action('AppController@removeFromCart', $product->id)}}" method="POST">
-                    @csrf
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button class="btn btn-danger" type="submit">Remove</button>
-                    </div>
-                </form>
-            </td>
         </tr>
         @endforeach
     </tbody>
