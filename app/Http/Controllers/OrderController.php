@@ -36,7 +36,25 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'address' => 'required',
+            'city_region' => 'required',
+            'cc_number' => 'required'
+        ]);
+
+        $order = new Order();
+        $order->customer()->name = $request->input('name');
+        $order->customer()->email = $request->input('email');
+        $order->customer()->phone = $request->input('phone');
+        $order->customer()->address = $request->input('address');
+        $order->customer()->city_region = $request->input('city_region');
+        $order->customer()->cc_number = $request->input('cc_number');
+        $order->save();
+
+        return view('purchase', compact('order'));
     }
 
     /**

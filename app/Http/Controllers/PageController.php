@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Session;
 
 class PageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only('checkout');
+    }
+
     public function index()
     {
         $categories = Category::all();
@@ -23,15 +28,18 @@ class PageController extends Controller
 
     public function cart()
     {
-        $items = Session::get('products');
-        $quantities = collect($items)->countBy();
-        $products = Product::whereIn('id', $items)->get();
+        $products = collect();
+        if (Session::has('products')) {
+            $items = Session::get('products');
+            $quantities = collect($items)->countBy();
+            $products = Product::whereIn('id', $items)->get();
 
-        $products->map(function($product) use ($quantities) {
-            $product['quantity'] = $quantities[$product->id];
-            return $product;
-        });
-
+            $products->map(function ($product) use ($quantities) {
+                $product['quantity'] = $quantities[$product->id];
+                $product['total'] = number_format($product->price * $quantities[$product->id], 2);
+                return $product;
+            });
+        }
         return view('cart', compact('products'));
     }
 
@@ -44,5 +52,11 @@ class PageController extends Controller
     public function showProduct(Product $product)
     {
         return view('products.show', compact('product'));
+    }
+
+    public function checkout(Request $request)
+    {
+        $total = $request->input('total');
+        return view('checkout', compact('total'));
     }
 }

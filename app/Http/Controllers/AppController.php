@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use App\Product;
 use Illuminate\Support\Facades\Session;
 
 class AppController extends Controller
 {
     public function changeLocale(Request $request) {
         $lang = $request->input('lang');
-        if (App::isLocale('en')) {
-            if ($lang == 'cz') {
-                App::setLocale('cz');
-            }
-        } else if (App::isLocale('cz')) {
-            if ($lang == 'en') {
-                App::setLocale('en');
-            }
-        }
+
+        App::isLocale('en') ?n ($lang == 'cz' ? App::setLocale('cz') : null ) : ($lang == 'en' ? App::setLocale('en') : null); 
+        return App::getLocale();
+        // if (App::isLocale('en')) {
+        //     if ($lang == 'cz') {
+        //         App::setLocale('cz');
+        //     }
+        // } else if (App::isLocale('cz')) {
+        //     if ($lang == 'en') {
+        //         App::setLocale('en');
+        //     }
+        // }
         return redirect('/');
     }
 
@@ -35,5 +37,11 @@ class AppController extends Controller
         }
         session()->put('products', $products);
         return redirect()->back();
+    }
+
+    public function clearCart()  {
+        Session::forget('products');
+        Session::save();
+        return redirect('/cart');
     }
 }

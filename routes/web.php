@@ -15,11 +15,13 @@ Route::get('/admin', 'AdminController@dashboard');
 Route::get('/', 'PageController@index');
 Route::post('/categories/{category}', 'AppController@addToCart');
 Route::get('/cart', 'PageController@cart');
+Route::post('/cart', 'AppController@clearCart');
 Route::post('/cart/{id}', 'AppController@removeFromCart');
 Route::get('/categories', 'PageController@categories');
 Route::get('/categories/{category}', 'PageController@showCategory');
 Route::get('/products/{product}', 'PageController@showProduct');
 Route::post('/', 'AppController@changeLocale');
+Route::post('/checkout', 'PageController@checkout');
 Auth::routes();
 
 Route::prefix('admin')->name('admin.')->group(function() {
