@@ -1,7 +1,7 @@
 @extends('layouts.admin') 
 @section('content')
 <h1>Products
-        <span><a class="btn btn-success float-right" href="/admin/categories/create">Create</a></span>
+        <span><a class="btn btn-success float-right" href="/admin/products/create">Create</a></span>
 </h1>
 
 <select class="custom-select mb-4">
@@ -17,6 +17,7 @@
             <th scope="col">ID</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
+            <th scope="col">Category</th>
             <th scope="col">Price</th>
             <th scope="col">Stock</th>
             <th scope="col">Image</th>
@@ -29,6 +30,7 @@
             <td>{{$product->id}}</td>
             <td>{{$product->name}}</td>
             <td>{{$product->description}}</td>
+            <td>{{$product->category->name ?? '-'}}</td>
             <td>{{$product->price}}</td>
             <td>{{$product->in_stock}}</td>
             <td>{{$product->image}}</td>
@@ -36,7 +38,7 @@
                 <form class="form-inline" action="{{action('ProductController@destroy', $product)}}" method="POST">
                     @csrf @method('DELETE')
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <a class="btn btn-dark" href="#">Edit</a>
+                        <a class="btn btn-dark" href="/admin/products/{{$product->id}}/edit">Edit</a>
                         <button class="btn btn-danger" type="submit">Delete</button>
                     </div>
                 </form>

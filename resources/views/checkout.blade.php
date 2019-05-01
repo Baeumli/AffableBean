@@ -6,19 +6,33 @@
     <div class="col-7">
     <form action="{{action('OrderController@store')}}" method="post">
         @csrf
-            <input type="text" name="name">
-            <input type="email" name="email">
-            <input type="text" name="phone">
-            <input type="text" name="address">
-            <select name="city_region">
+
+    <div class="form-group">
+            <label for="name">Name:</label>
+            <input class="form-control" type="text" name="name" value="{{old('name', $user->name)}}">
+            <label for="email">Email:</label>
+            <input class="form-control" type="email" name="email" value="{{old('email', $user->email)}}">
+            <label for="phone">Phone:</label>
+            <input class="form-control" type="text" name="phone" value="{{old('phone', $user->phone)}}">
+            <label for="address">Address:</label>
+            <input class="form-control" type="text" name="address" value="{{old('address', $user->address)}}">
+            <label for="city_region">Prague:</label>
+            <select class="form-control" name="city_region" value="{{old('city_region', $user->city_region)}}">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
                 <option>4</option>
                 <option>5</option>
             </select>
-            <input type="text" name="cc_number">
+            <label for="cc_number">Credit card number:</label>
+            <input class="form-control" type="text" name="cc_number">
+        <input type="hidden" name="user" value="{{$user->id}}">
+    </div>
+    <div class="input-group">
             <button type="submit">Purchase</button>
+    </div>
+    
+            
         </form>
     </div>
     <div class="col-5">

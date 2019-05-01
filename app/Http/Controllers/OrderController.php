@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use App\User;
 
 class OrderController extends Controller
 {
@@ -44,16 +45,22 @@ class OrderController extends Controller
             'city_region' => 'required',
             'cc_number' => 'required'
         ]);
+        $user = User::find($request->input('user'));
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->phone = $request->input('phone');
+        $user->address = $request->input('address');
+        $user->city_region = $request->input('city_region');
+        $user->cc_number = $request->input('cc_number');
+        $user->save();
 
         $order = new Order();
-        $order->customer()->name = $request->input('name');
-        $order->customer()->email = $request->input('email');
-        $order->customer()->phone = $request->input('phone');
-        $order->customer()->address = $request->input('address');
-        $order->customer()->city_region = $request->input('city_region');
-        $order->customer()->cc_number = $request->input('cc_number');
+        $order->user_id = $user->id;
+        $order->total_price = 200;
+        $order->confirmation_number = 32324424;
         $order->save();
 
+        
         return view('purchase', compact('order'));
     }
 

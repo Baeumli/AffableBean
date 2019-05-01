@@ -2,7 +2,7 @@
 
 @section('content')
     <h1>Administrators
-            <span><a class="btn btn-success float-right" href="/admin/categories/create">Create</a></span>
+            <span><a class="btn btn-success float-right" href="/admin/admins/create">Create</a></span>
     </h1>
     <table class="table">
             <thead>

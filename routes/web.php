@@ -29,12 +29,12 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('products', 'ProductController');
     Route::resource('orders', 'OrderController');
     Route::resource('users', 'UserController');
-    Route::resource('admins', 'UserController')->except(['index', 'create', 'edit', 'show']);
     Route::get('/admins', 'AdminController@index')->name('admins.index');
     Route::get('/admins/create', 'AdminController@create')->name('admins.create');
     Route::get('/admins/{id}/edit', 'AdminController@edit')->name('admins.edit');
     Route::get('/admins/{id}', 'AdminController@show')->name('admins.show');
-    
+    Route::post('/admins', 'AdminController@store')->name('admins.store');
+    Route::put('/admins/{id}', 'AdminController@update')->name('admins.update');
 });
 
 

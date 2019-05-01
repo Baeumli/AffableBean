@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -42,11 +44,21 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->description = $request->description;
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->in_stock = $request->input('stock');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/products');
+            $image->move($destinationPath, $name);
+            $product->image = $name;
+        }
+
         $product->save();
-        return redirect('/products');
+        return redirect('/admin/products');
     }
 
     /**
@@ -68,7 +80,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -81,10 +94,20 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->name = $request->input('name');
-        $product->price = $request->input('price');
         $product->description = $request->input('description');
+        $product->price = $request->input('price');
+        $product->in_stock = $request->input('stock');
+        $product->category_id = $request->input('category'); 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/products');
+            $image->move($destinationPath, $name);
+            $product->image = $name;
+        }
+
         $product->save();
-        return redirect('/products');
+        return redirect('/admin/products');
     }
 
     /**

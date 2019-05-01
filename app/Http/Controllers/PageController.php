@@ -57,6 +57,7 @@ class PageController extends Controller
     public function checkout(Request $request)
     {
         $total = $request->input('total');
-        return view('checkout', compact('total'));
+        $user = auth()->user();
+        return view('checkout', compact('total', 'user'));
     }
 }
