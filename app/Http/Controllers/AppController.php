@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use App\Order;
 
 class AppController extends Controller
 {
@@ -25,10 +26,19 @@ class AppController extends Controller
         return redirect('/');
     }
 
-    // public function addToCart($id) {
-    //     Session::push('products', $id);
-    //     return redirect()->back();
-    // }
+    public function addToCart($id) {
+        $user_id = auth()->user()->id;
+        if (Order::where('user_id', $user_id)->first() == null) {
+            $order = new Order();
+            $order->user_id = $user_id;
+            $order->save();
+        } else {
+            $order = Order::where('user_id', $user_id)->first();
+        }
+        $order->products()->attach($id);
+        $order->save();  
+        return redirect()->back();
+    }
 
     // public function removeFromCart($id) {
     //     $products = session()->pull('products', []);

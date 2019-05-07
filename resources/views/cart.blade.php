@@ -5,7 +5,7 @@
     <div class="col">
         <a class="btn btn-dark" href="/">Continue shopping</a>
     </div>
-    @if ($cart->isNotEmpty())
+    //@if ($cart->isNotEmpty())
     <div class="col">
         <form action="{{action('CartController@clearCart')}}" method="post">
             @csrf
@@ -40,6 +40,7 @@
             </thead>
             <tbody>
                 @foreach ($cart as $product)
+                {{$product->products}}
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>

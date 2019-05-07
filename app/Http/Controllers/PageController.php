@@ -28,19 +28,7 @@ class PageController extends Controller
 
     public function cart()
     {
-        $products = collect();
-        if (Session::has('products')) {
-            $items = Session::get('products');
-            $quantities = collect($items)->countBy();
-            $products = Product::whereIn('id', $items)->get();
-
-            $products->map(function ($product) use ($quantities) {
-                $product['quantity'] = $quantities[$product->id];
-                $product['total'] = number_format($product->price * $quantities[$product->id], 2);
-                return $product;
-            });
-        }
-        return view('cart', compact('products'));
+        return view('cart');
     }
 
     public function showCategory(Category $category)
