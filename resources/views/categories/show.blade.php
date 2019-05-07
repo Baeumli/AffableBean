@@ -28,7 +28,7 @@
                         </td>
                         <td class="align-middle">
                             @if ($product->in_stock > 0)
-                            <form action="{{action('AppController@addToCart', $product->id)}}" method="post">
+                            <form action="{{action('CartController@addToCart', $product->id)}}" method="post">
                                 @csrf
                                 <button class="btn btn-success" type="submit">Add to cart</button>
                             </form>

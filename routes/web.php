@@ -13,9 +13,9 @@
 
 Route::get('/admin', 'AdminController@dashboard');
 Route::get('/', 'PageController@index');
-Route::post('/categories/{category}', 'AppController@addToCart');
-Route::get('/cart', 'PageController@cart');
-Route::post('/cart', 'AppController@clearCart');
+Route::post('/categories/{category}', 'CartController@addToCart');
+Route::get('/cart', 'CartController@index');
+Route::post('/cart', 'CartController@clearCart');
 Route::post('/cart/{id}', 'AppController@removeFromCart');
 Route::get('/categories', 'PageController@categories');
 Route::get('/categories/{category}', 'PageController@showCategory');

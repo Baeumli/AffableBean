@@ -5,9 +5,9 @@
     <div class="col">
         <a class="btn btn-dark" href="/">Continue shopping</a>
     </div>
-    @if ($products->isNotEmpty())
+    @if ($cart->isNotEmpty())
     <div class="col">
-        <form action="{{action('AppController@clearCart')}}" method="post">
+        <form action="{{action('CartController@clearCart')}}" method="post">
             @csrf
             <button class="btn btn-dark" type="submit">Clear cart</button>
         </form>
@@ -15,7 +15,7 @@
         <div class="col">
             <form action="{{action('PageController@checkout')}}" method="post">
                 @csrf
-                <input type="hidden" name="total" value="{{($products->sum('total', 2))}}">
+                <input type="hidden" name="total" value="{{($cart->sum('price', 2))}}">
                 <button class="btn btn-dark" type="submit">Go to checkout</button>
             </form>
         </div>
@@ -24,7 +24,7 @@
 </div>
 <div class="row">
     <div class="col">
-            @if ($products->isNotEmpty())
+            @if ($cart->isNotEmpty())
         <table class="table">
             <thead>
                 <tr>
@@ -39,24 +39,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($products as $product)
+                @foreach ($cart as $product)
                 <tr>
                     <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
                     <td>{{$product->description}}</td>
                     <td>&euro; {{$product->price}}</td>
                     <td>
-                        <span class="float-right"><form action="{{action('AppController@addToCart', $product->id)}}" method="POST">
-                                        @csrf
-                                        <button class="btn btn-danger" type="submit">+</button>
-                                    </form></span>
-
-                            <span class="float-none">{{$product->quantity}}</span>
-                   
-                        <span class="float-left"><form action="{{action('AppController@removeFromCart', $product->id)}}" method="POST">
-                                        @csrf
-                                        <button class="btn btn-danger" type="submit">-</button>
-                                    </form></span>
+                        <p>Actions</p>
                     </td>
                     <td>
                         <p>&euro; {{$product->total}}</p>
@@ -67,7 +57,7 @@
                 @endforeach
             </tbody>
         </table>
-        <p>Subtotal: &euro; {{number_format($products->sum('total'), 2)}}</p>
+        <p>Subtotal: </p>
         @else
         <p>Empty Cart</p>
         @endif
