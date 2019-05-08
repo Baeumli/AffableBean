@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
 use App\Order;
 
 class AppController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     public function changeLocale(Request $request) {
         $lang = $request->input('lang');
 
@@ -28,15 +32,22 @@ class AppController extends Controller
 
     public function addToCart($id) {
         $user_id = auth()->user()->id;
-        if (Order::where('user_id', $user_id)->first() == null) {
+        $order = Order::where('user_id', $user_id)->first();
+        if ($order == null) {
             $order = new Order();
             $order->user_id = $user_id;
             $order->save();
-        } else {
-            $order = Order::where('user_id', $user_id)->first();
         }
-        $order->products()->attach($id);
-        $order->save();  
+        
+        if (!$order->products->contains($id)) {
+            $order->products()->attach($id);
+        }
+
+        $product = $order->products()->where('id', $id)->first();
+        $product->pivot->quantity += 1;
+        $product->pivot->save();
+        $order->total_price += ($product->pivot->quantity * $product->price);
+        $order->save();
         return redirect()->back();
     }
 

@@ -1,34 +1,33 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 @section('content')
 <h1>Cart</h1>
 <div class="row mb-4 ">
     <div class="col">
         <a class="btn btn-dark" href="/">Continue shopping</a>
     </div>
-    //@if ($cart->isNotEmpty())
+    {{-- @if ($cart->isNotEmpty())
     <div class="col">
         <form action="{{action('CartController@clearCart')}}" method="post">
-            @csrf
-            <button class="btn btn-dark" type="submit">Clear cart</button>
-        </form>
-    </div>
-        <div class="col">
-            <form action="{{action('PageController@checkout')}}" method="post">
-                @csrf
-                <input type="hidden" name="total" value="{{($cart->sum('price', 2))}}">
-                <button class="btn btn-dark" type="submit">Go to checkout</button>
-            </form>
-        </div>
-    @endif
-    
+    @csrf
+    <button class="btn btn-dark" type="submit">Clear cart</button>
+    </form>
+</div>
+<div class="col">
+    <form action="{{action('PageController@checkout')}}" method="post">
+        @csrf
+        <input type="hidden" name="total" value="{{($cart->sum('price', 2))}}">
+        <button class="btn btn-dark" type="submit">Go to checkout</button>
+    </form>
+</div>
+@endif --}}
+
 </div>
 <div class="row">
     <div class="col">
-            @if ($cart->isNotEmpty())
+        @if ($cart != null)
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
                     <th scope="col">Name</th>
                     <th scope="col">Description</th>
                     <th scope="col">Price</th>
@@ -39,26 +38,20 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($cart as $product)
-                {{$product->products}}
+                @foreach ($cart->products as $product)
                 <tr>
-                    <td>{{$product->id}}</td>
                     <td>{{$product->name}}</td>
                     <td>{{$product->description}}</td>
                     <td>&euro; {{$product->price}}</td>
-                    <td>
-                        <p>Actions</p>
-                    </td>
-                    <td>
-                        <p>&euro; {{$product->total}}</p>
-                    </td>
+                    <td>{{$product->pivot->quantity}}</td>
+                    <td>&euro; {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
                     <td>{{$product->in_stock}}</td>
                     <td>{{$product->image}}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <p>Subtotal: </p>
+        <p>Subtotal: {{$cart->total_price}}</p>
         @else
         <p>Empty Cart</p>
         @endif

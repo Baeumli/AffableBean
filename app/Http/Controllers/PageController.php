@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use Illuminate\Support\Facades\Session;
+use App\Order;
 
 class PageController extends Controller
 {
@@ -28,7 +29,8 @@ class PageController extends Controller
 
     public function cart()
     {
-        return view('cart');
+        $cart = Order::where('user_id', auth()->user()->id)->first();
+        return view('cart', compact('cart'));
     }
 
     public function showCategory(Category $category)
