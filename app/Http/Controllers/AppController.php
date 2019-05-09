@@ -51,18 +51,12 @@ class AppController extends Controller
         return redirect()->back();
     }
 
-    // public function removeFromCart($id) {
-    //     $products = session()->pull('products', []);
-    //     if(($key = array_search($id, $products)) !== false) {
-    //         unset($products[$key]);
-    //     }
-    //     session()->put('products', $products);
-    //     return redirect()->back();
-    // }
-
-    // public function clearCart()  {
-    //     Session::forget('products');
-    //     Session::save();
-    //     return redirect('/cart');
-    // }
+    public function clearCart()  {
+        $user_id = auth()->user()->id;
+        $order = Order::where('user_id', $user_id)->first();
+        $order->products()->detach();
+        $order->total_price = null;
+        $order->save();
+        return redirect('/cart');
+    }
 }

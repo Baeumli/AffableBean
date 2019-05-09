@@ -29,7 +29,7 @@ class PageController extends Controller
 
     public function cart()
     {
-        $cart = Order::where('user_id', auth()->user()->id)->first();
+        $cart = Order::where('user_id', auth()->user()->id)->where('confirmation_number', null)->first();
         return view('cart', compact('cart'));
     }
 
@@ -46,8 +46,8 @@ class PageController extends Controller
 
     public function checkout(Request $request)
     {
-        $total = $request->input('total');
-        $user = auth()->user();
-        return view('checkout', compact('total', 'user'));
+        $user_id = auth()->user()->id;
+        $order = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
+        return view('checkout', compact('order'));
     }
 }

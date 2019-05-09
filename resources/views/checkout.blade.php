@@ -9,15 +9,15 @@
 
     <div class="form-group">
             <label for="name">Name:</label>
-            <input class="form-control" type="text" name="name" value="{{old('name', $user->name)}}">
+            <input class="form-control" type="text" name="name" value="{{old('name', $order->user->name)}}">
             <label for="email">Email:</label>
-            <input class="form-control" type="email" name="email" value="{{old('email', $user->email)}}">
+            <input class="form-control" type="email" name="email" value="{{old('email', $order->user->email)}}">
             <label for="phone">Phone:</label>
-            <input class="form-control" type="text" name="phone" value="{{old('phone', $user->phone)}}">
+            <input class="form-control" type="text" name="phone" value="{{old('phone', $order->user->phone)}}">
             <label for="address">Address:</label>
-            <input class="form-control" type="text" name="address" value="{{old('address', $user->address)}}">
+            <input class="form-control" type="text" name="address" value="{{old('address', $order->user->address)}}">
             <label for="city_region">Prague:</label>
-            <select class="form-control" name="city_region" value="{{old('city_region', $user->city_region)}}">
+            <select class="form-control" name="city_region" value="{{old('city_region', $order->user->city_region)}}">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -26,7 +26,7 @@
             </select>
             <label for="cc_number">Credit card number:</label>
             <input class="form-control" type="text" name="cc_number">
-        <input type="hidden" name="user" value="{{$user->id}}">
+        <input type="hidden" name="user" value="{{$order->user->id}}">
     </div>
     <div class="input-group">
             <button type="submit">Purchase</button>
@@ -43,9 +43,9 @@
         <div class="card">
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item">Subtotal: <span>&euro; {{$total}}</span></li>
+                    <li class="list-group-item">Subtotal: <span>&euro; {{$order->total_price}}</span></li>
                     <li class="list-group-item">Surcharge: <span>&euro; 3.00</span></li>
-                    <li class="list-group-item">Total: <span>&euro; {{$total + 3.00}}</span></li>
+                    <li class="list-group-item">Total: <span>&euro; {{$order->total_price + 3.00}}</span></li>
                 </ul>
             </div>
         </div>

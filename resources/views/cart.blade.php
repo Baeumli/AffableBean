@@ -5,9 +5,9 @@
     <div class="col">
         <a class="btn btn-dark" href="/">Continue shopping</a>
     </div>
-    {{-- @if ($cart->isNotEmpty())
+    @if ($cart != null)
     <div class="col">
-        <form action="{{action('CartController@clearCart')}}" method="post">
+        <form action="{{action('AppController@clearCart')}}" method="post">
     @csrf
     <button class="btn btn-dark" type="submit">Clear cart</button>
     </form>
@@ -15,11 +15,10 @@
 <div class="col">
     <form action="{{action('PageController@checkout')}}" method="post">
         @csrf
-        <input type="hidden" name="total" value="{{($cart->sum('price', 2))}}">
         <button class="btn btn-dark" type="submit">Go to checkout</button>
     </form>
 </div>
-@endif --}}
+@endif
 
 </div>
 <div class="row">

@@ -20,7 +20,8 @@ class CreateProductsTable extends Migration
             $table->decimal('price');
             $table->mediumText('description');
             $table->integer('in_stock')->default(0);
-            $table->integer('category_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->string('image')->nullable();
             $table->timestamps();
         });

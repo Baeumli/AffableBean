@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::where('confirmation_number', '!=', null)->get();
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -51,7 +51,8 @@ class OrderController extends Controller
             'city_region' => 'required',
             'cc_number' => 'required'
         ]);
-        $user = User::find($request->input('user'));
+        $user_id = auth()->user()->id;
+        $user = User::find($user_id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->phone = $request->input('phone');
@@ -60,13 +61,9 @@ class OrderController extends Controller
         $user->cc_number = $request->input('cc_number');
         $user->save();
 
-        $order = new Order();
-        $order->user_id = $user->id;
-        $order->total_price = 200;
-        $order->confirmation_number = 32324424;
+        $order = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
+        $order->confirmation_number = time();
         $order->save();
-
-        
         return view('purchase', compact('order'));
     }
 
