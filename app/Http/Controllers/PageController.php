@@ -7,6 +7,7 @@ use App\Category;
 use App\Product;
 use Illuminate\Support\Facades\Session;
 use App\Order;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -29,7 +30,13 @@ class PageController extends Controller
 
     public function cart()
     {
-        $cart = Order::where('user_id', auth()->user()->id)->where('confirmation_number', null)->first();
+        if (Auth::check()) {
+            $user_id = auth()->user()->id;
+            $cart = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
+        } else {
+            $cart = new Order();
+        }
+        
         return view('cart', compact('cart'));
     }
 

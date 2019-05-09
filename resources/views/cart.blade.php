@@ -3,23 +3,24 @@
 <h1>Cart</h1>
 <div class="row mb-4 ">
     <div class="col">
-        <a class="btn btn-dark" href="/">Continue shopping</a>
-    </div>
-    @if ($cart != null)
-    <div class="col">
-        <form action="{{action('AppController@clearCart')}}" method="post">
-    @csrf
-    <button class="btn btn-dark" type="submit">Clear cart</button>
-    </form>
-</div>
-<div class="col">
-    <form action="{{action('PageController@checkout')}}" method="post">
-        @csrf
-        <button class="btn btn-dark" type="submit">Go to checkout</button>
-    </form>
-</div>
-@endif
-
+            <div class="float-left mr-3">
+                <a class="btn btn-dark" href="/">Continue shopping</a>
+            </div>
+                @if ($cart != null)
+                <div class="float-left mr-3">
+                    <form action="{{action('AppController@clearCart')}}" method="post">
+                        @csrf
+                        <button class="btn btn-dark" type="submit">Clear cart</button>
+                    </form>
+                </div>
+                <div class="float-left mr-3">
+                    <form action="{{action('PageController@checkout')}}" method="post">
+                        @csrf
+                        <button class="btn btn-dark" type="submit">Proceed to checkout</button>
+                    </form>
+                </div>
+            @endif
+        </div>
 </div>
 <div class="row">
     <div class="col">
@@ -42,7 +43,15 @@
                     <td>{{$product->name}}</td>
                     <td>{{$product->description}}</td>
                     <td>&euro; {{$product->price}}</td>
-                    <td>{{$product->pivot->quantity}}</td>
+                    <td>
+                            <form action="{{action('AppController@updateQuantity')}}" method="post">
+                                @csrf
+                                <button class="btn btn-dark" type="submit">Proceed to checkout</button>
+                            </form>
+
+
+                        {{$product->pivot->quantity}}
+                    </td>
                     <td>&euro; {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
                     <td>{{$product->in_stock}}</td>
                     <td>{{$product->image}}</td>

@@ -51,6 +51,21 @@ class AppController extends Controller
         return redirect()->back();
     }
 
+    public function updateQuantity(Request $request) {
+        $request->validate([
+            'product_id' => 'required',
+            'quantity' => 'required',
+        ]);
+
+        $user_id = auth()->user()->id;
+        $order = Order::where('user_id', $user_id)->first();
+        $product_id = $request->input('product_id');
+        $product = $order->products()->where('id', $product_id)->first();
+        $product->pivot->quantity = $request->input('quantity');
+        $product->pivot->save();
+        return redirect()->back();
+    }
+
     public function clearCart()  {
         $user_id = auth()->user()->id;
         $order = Order::where('user_id', $user_id)->first();
