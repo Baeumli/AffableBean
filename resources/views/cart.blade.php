@@ -40,21 +40,17 @@
             <tbody>
                 @foreach ($cart->products as $product)
                 <tr>
-                    <td>{{$product->name}}</td>
-                    <td>{{$product->description}}</td>
-                    <td>&euro; {{$product->price}}</td>
-                    <td>
-                            <form action="{{action('AppController@updateQuantity')}}" method="post">
-                                @csrf
-                                <button class="btn btn-dark" type="submit">Proceed to checkout</button>
-                            </form>
-
-
+                    <td class="align-middle">{{$product->name}}</td>
+                    <td class="align-middle">{{$product->description}}</td>
+                    <td class="align-middle">&euro; {{$product->price}}</td>
+                    <td class="align-middle">
                         {{$product->pivot->quantity}}
                     </td>
-                    <td>&euro; {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
-                    <td>{{$product->in_stock}}</td>
-                    <td>{{$product->image}}</td>
+                    <td class="align-middle">&euro; {{number_format($product->price * $product->pivot->quantity, 2)}}</td>
+                    <td class="align-middle">{{$product->in_stock}}</td>
+                    <td class="align-middle"><img src="{{asset('images/products/' . $product->image)}}" onerror="this.src='images/404.svg'" alt=""
+                        class="card-img-top w-50">
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
