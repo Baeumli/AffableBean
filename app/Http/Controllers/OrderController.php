@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('confirmation_number', '!=', null)->get();
+        $orders = Order::where('confirmation_number', '!=', null)->where('status', 'ORDERED')->get();
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -63,6 +63,7 @@ class OrderController extends Controller
 
         $order = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
         $order->confirmation_number = time();
+        $order->status = 'ORDERED';
         $order->save();
         return view('purchase', compact('order'));
     }

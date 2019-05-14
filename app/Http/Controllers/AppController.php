@@ -32,7 +32,7 @@ class AppController extends Controller
 
     public function addToCart($id) {
         $user_id = auth()->user()->id;
-        $order = Order::where('user_id', $user_id)->first();
+        $order = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
         if ($order == null) {
             $order = new Order();
             $order->user_id = $user_id;
@@ -58,7 +58,7 @@ class AppController extends Controller
         ]);
 
         $user_id = auth()->user()->id;
-        $order = Order::where('user_id', $user_id)->first();
+        $order = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
         $product_id = $request->input('product_id');
         $product = $order->products()->where('id', $product_id)->first();
         $product->pivot->quantity = $request->input('quantity');
@@ -68,7 +68,7 @@ class AppController extends Controller
 
     public function clearCart()  {
         $user_id = auth()->user()->id;
-        $order = Order::where('user_id', $user_id)->first();
+        $order = Order::where('user_id', $user_id)->where('confirmation_number', null)->first();
         $order->products()->detach();
         $order->total_price = null;
         $order->save();

@@ -18,7 +18,8 @@
         <tr>
             <td>{{$category->id}}</td>
             <td>{{$category->name}}</td>
-            <td>{{$category->image}}</td>
+            <td><img src="{{asset('images/categories/' . $category->image)}}" onerror="this.src='images/404.svg'" alt=""
+                class="card-img-top w-50"></td>
             <td>
                 <form class="form-inline" action="{{action('CategoryController@destroy', $category)}}" method="POST">
                     @csrf @method('DELETE')
