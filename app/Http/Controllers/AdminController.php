@@ -30,7 +30,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = User::where('is_admin', '!=', 0)->get();
+        $admins = User::where('is_admin', 1)->get();
         return view('admin.admins.index', compact('admins'));
     }
 
