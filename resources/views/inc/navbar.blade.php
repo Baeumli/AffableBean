@@ -10,14 +10,6 @@
                     <a class="nav-link" href="/cart">Cart</a>
                 </li>   
             </ul>
-        <form action="{{action('AppController@changeLocale')}}" method="post">
-            @csrf
-            @if (App::isLocale('en'))
-            <button type="submit" name="lang" value="cz">CZZZ</button>
-            @else 
-            <button type="submit" name="lang" value="en">NNNNN</button>
-            @endif
-        </form>
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->

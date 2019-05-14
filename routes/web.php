@@ -35,6 +35,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/admins/{id}', 'AdminController@show')->name('admins.show');
     Route::post('/admins', 'AdminController@store')->name('admins.store');
     Route::put('/admins/{id}', 'AdminController@update')->name('admins.update');
+    Route::put('/admins/orders/{id}', 'OrderController@complete')->name('orders.complete');
+
 });
 
 

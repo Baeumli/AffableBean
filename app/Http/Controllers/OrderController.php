@@ -75,7 +75,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
@@ -110,5 +110,12 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function complete($id) {
+        $order = Order::find($id);
+        $order->status = 'COMPLETED';
+        $order->save();
+        return redirect()->back();
     }
 }

@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('confirmation_number')->nullable();
             $table->string('promo_code')->nullable();
+            $table->enum('status', ['CART', 'COMPLETED'])->default('CART');
             $table->timestamps();
         });
     }
